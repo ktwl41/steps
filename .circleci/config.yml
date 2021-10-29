@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@1.7.0
+
 jobs:
   testing_poststeps:
     parameters:
@@ -10,14 +13,16 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
-          name: Fail but green
-          command: command -v kubectl || true
-          post-steps:
-            - run:
-                command: echo "upload artifact to s3"
+          name: Fail or Pass
+          command: exit << parameters.exit_code >>
 
 workflows:
   main:
     jobs:
       - testing_poststeps:
           exit_code: 1
+          post-steps:
+            - run:
+                command: echo "try to use an Orb command"
+            - docker/pull:
+                image: "alpine"
