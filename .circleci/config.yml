@@ -11,7 +11,7 @@ jobs:
     steps:
       - run:
           name: Pass or Fail
-          command: exit << parameters.exit_code >>
+          command: exit << parameters.exit_code >> || true
           post-steps:
             - run:
                 command: echo "upload artifact to s3"
