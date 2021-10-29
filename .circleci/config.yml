@@ -1,17 +1,23 @@
 version: 2.1
 
 jobs:
-  echo:
+  testing_poststeps:
+    parameters:
+      exit_code:
+        type: integer
+        default: 0
     docker:
       - image: cimg/base:stable
     steps:
       - run:
-          name: Greet
-          command: echo "I love ${COLOR} builds."
-          environment:
-            COLOR: "green"
+          name: Pass or Fail
+          command: exit << parameters.exit_code >>
+          post-steps:
+            - run:
+                command: echo "upload artifact to s3"
 
 workflows:
   main:
     jobs:
-      - echo
+      - testing_poststeps:
+          exit_code: 1
