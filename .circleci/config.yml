@@ -10,8 +10,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
-          name: Pass or Fail
-          command: exit << parameters.exit_code >> || true
+          name: Fail but green
+          command: command -v kubectl || true
           post-steps:
             - run:
                 command: echo "upload artifact to s3"
