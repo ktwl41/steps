@@ -25,4 +25,4 @@ workflows:
             - run:
                 command: echo "try to use an Orb command"
             - docker/pull:
-                image: "alpine"
+                images: "alpine"
