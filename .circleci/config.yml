@@ -14,7 +14,9 @@ jobs:
     steps:
       - run:
           name: Fail or Pass
-          command: exit << parameters.exit_code >>
+          command: |
+            set +o pipefail
+            exit << parameters.exit_code >>
 
 workflows:
   main:
