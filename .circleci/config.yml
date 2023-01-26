@@ -22,7 +22,7 @@ workflows:
   main:
     jobs:
       - testing_poststeps:
-          exit_code: 1
+          exit_code: 0
           post-steps:
             - run:
                 command: echo "try to use an Orb command"
